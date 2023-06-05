@@ -58,8 +58,10 @@ const IsActions = ({ p }: { p: any }) => {
       <DeleteIcon
         className="link-delete"
         onClick={async () => {
-          const data = await deleteEntry(p.data.id);
-          dispatch({ type: "SET_DATA", payload: data });
+          const data = await deleteEntry(p.data._id);
+          console.log(data);
+          if (data?.acknowledged)
+            dispatch({ type: "REMOVE_ENTITY", payload: p.data._id });
         }}
         sx={{ cursor: "pointer", marginLeft: ".5rem" }}
       />

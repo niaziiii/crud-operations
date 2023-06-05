@@ -1,81 +1,48 @@
 // write data to the json file
 import fs from "fs";
+import User from "./schema/entities.schema.js";
 
-const writeData = (req, res) => {
-  const previousData = JSON.parse(fs.readFileSync("public/data.json", "utf8"));
+const writeData = async (req, res) => {
+  const user = await User.create(req.body);
 
-  if (previousData.length === 0) {
-    fs.writeFile("public/data.json", JSON.stringify([req.body]), (err) => {
-      if (err) {
-        res.status(500).json({ error: "Failed to write data to file." });
-      }
-
-      res.status(201).json({
-        message: "Data has been written to file.",
-        data: [req.body],
-      });
-    });
-  } else {
-    previousData.push(req.body);
-    fs.writeFile("public/data.json", JSON.stringify(previousData), (err) => {
-      if (err) {
-        res.status(500).json({ error: "Failed to write data to file." });
-      }
-      res.status(201).json({
-        message: "Data has been written to file.",
-        data: previousData,
-      });
-    });
-  }
-};
-
-const getData = (req, res) => {
-  fs.readFile("public/data.json", "utf8", (err, data) => {
-    if (err) {
-      res.status(500).json({ error: "Failed to read data from file." });
-    }
-    res.status(200).json({
-      message: "Data has been read from file.",
-      length: JSON.parse(data).length,
-      data: JSON.parse(data),
-    });
+  res.status(201).json({
+    message: "Data has been written to file.",
+    data: user,
   });
 };
 
-const deleteData = (req, res) => {
-  const previousData = JSON.parse(fs.readFileSync("public/data.json", "utf8"));
-  const newData = previousData.filter((item) => item.id !== req.body.id);
+const getData = async (req, res) => {
+  const allUser = await User.find();
 
-  fs.writeFile("public/data.json", JSON.stringify(newData), (err) => {
-    if (err) {
-      res.status(500).json({ error: "Failed to write data to file." });
-    }
-    res.status(202).json({
-      message: "Data has been Deleted from file.",
-      data: newData,
-    });
+  res.status(200).json({
+    message: "Data has been read from file.",
+    length: allUser.length,
+    data: allUser,
   });
 };
 
-const updateData = (req, res) => {
-  const previousData = JSON.parse(fs.readFileSync("public/data.json", "utf8"));
-  let updatedData = [];
-  previousData.forEach((elem, value) => {
-    if (elem.id == req.body.id) {
-      updatedData.push(req.body);
-    } else {
-      updatedData.push(elem);
-    }
-  });
+const deleteData = async (req, res) => {
+  const deleteUser = await User.deleteOne({ _id: req.body.id });
 
-  fs.writeFile("public/data.json", JSON.stringify(updatedData), (err) => {
-    if (err) {
-      res.status(500).json({ error: "Failed to update data to file." });
+  res.status(202).json({
+    message: "Data has been Deleted from file.",
+    data: deleteUser,
+  });
+};
+
+const updateData = async (req, res) => {
+  const updateUser = await User.findByIdAndUpdate(
+    { _id: req.body._id },
+    req.body,
+    {
+      new: true,
+      runValidators: true,
     }
-    res.status(200).json({
-      message: "Data has been updated from file.",
-      data: updatedData,
-    });
+  );
+
+  res.status(200).json({
+    message: "Data has been updated from file.",
+    data: updateUser,
   });
 };
 export { writeData, getData, deleteData, updateData };

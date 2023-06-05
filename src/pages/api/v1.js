@@ -1,7 +1,7 @@
 import nc from "next-connect";
 import { writeData, getData, deleteData, updateData } from "./utilties";
-import multer from "multer";
 import upload from "./multerUpload";
+import "./schema/db.entities.js";
 
 const handler = nc();
 export const config = {
@@ -11,16 +11,16 @@ export const config = {
 };
 
 // get request api
-handler.get((req, res) => getData(req, res));
+handler.get(async (req, res) => await getData(req, res));
 
 // post request api with images
 handler.use(upload.single("image"));
-handler.post((req, res) => writeData(req, res));
+handler.post(async (req, res) => await writeData(req, res));
 
 // update request api
-handler.patch((req, res) => updateData(req, res));
+handler.patch(async (req, res) => await updateData(req, res));
 
 // delete request api
-handler.delete((req, res) => deleteData(req, res));
+handler.delete(async (req, res) => await deleteData(req, res));
 
 export default handler;

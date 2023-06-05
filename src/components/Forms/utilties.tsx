@@ -78,12 +78,12 @@ const formattedDate = (date: Date): string => {
 // convert date to structured format data using formData API.
 const formDataFormat = (
   data: any,
-  id: string,
   type: string,
   coordinates: any
 ): FormData => {
   const form = new FormData();
-  form.append("id", id);
+  if (data._id) form.append("_id", data._id);
+
   form.append("type", type);
   form.append("status", data.status);
   form.append("address", data.address);

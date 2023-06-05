@@ -65,20 +65,15 @@ const AddForm = ({
     let req;
 
     if (data) {
-      const submitData = formDataFormat(value, value.id, "user", coordinates);
+      const submitData = formDataFormat(value, "user", coordinates);
 
       req = await patchItems("/api/v1", submitData);
     } else {
-      const submitData = formDataFormat(
-        value,
-        generateRandomId(),
-        "user",
-        coordinates
-      );
+      const submitData = formDataFormat(value, "user", coordinates);
       req = await postItems("/api/v1", submitData);
     }
 
-    dispatch({ type: "SET_DATA", payload: req.data.data });
+    dispatch({ type: "SET_UPDATE_DATA", payload: req.data.data });
     closePopupModal();
   };
 

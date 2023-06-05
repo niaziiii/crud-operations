@@ -1,7 +1,7 @@
 import React, { createContext, Dispatch } from "react";
 
 export type EntitiesDataType = {
-  id: string;
+  _id?: string;
   name: string;
   type: string;
   status: string;
@@ -59,11 +59,24 @@ const userReducer = (
       return { ...state, id: action.payload };
     case "RESET":
       return { ...state, show: null, id: "" };
+    case "REMOVE_ENTITY":
+      const newData = state.allData.filter(
+        (data) => data._id !== action.payload
+      );
+
+      return { ...state, allData: newData };
     case "SET_DATA":
       const formatedData = formatedDataFn(action.payload) as EntitiesDataType[];
       return {
         ...state,
         allData: formatedData,
+      };
+    case "SET_UPDATE_DATA":
+      console.log(state.allData, action.payload);
+
+      return {
+        ...state,
+        allData: [...state.allData, action.payload],
       };
     case "SORTFilterAGE":
       return {
