@@ -1,0 +1,75 @@
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+body {
+  padding: 0% !important;
+  background-color: #dddddd !important;
+}
+a {
+  text-decoration: none;
+}
+
+.btn-0:hover .student {
+  display: block !important;
+}
+
+.btn-1:hover .user {
+  display: block;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+.blacklink {
+  color: black !important;
+}
+.link-delete {
+  color: #d32f2f;
+}
+.link-edit {
+  color: green;
+}
+
+.css-iv7vbz-MuiGrid-root {
+  text-align: end;
+}
+.css-iv7vbz-MuiGrid-root label {
+  margin-right: 1.5rem;
+}
+
+@media screen and (max-width: 900px) {
+  .css-iv7vbz-MuiGrid-root {
+    text-align: start;
+  }
+}
+
+/* custom scroll-bar */
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.mapboxgl-popup-content {
+  padding: 0% !important;
+  top: 4px;
+  font-size: 1.3rem;
+}
+.mapboxgl-popup-close-button {
+  color: white;
+  background-color: black;
+  right: 4px !important;
+  top: 4px !important;
+  font-size: 1.3rem !important;
+  border: none !important;
+  outline: none !important;
+}

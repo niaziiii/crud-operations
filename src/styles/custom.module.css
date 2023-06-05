@@ -1,0 +1,23 @@
+.lightBg {
+  background-color: #dddddd;
+}
+.lightColor {
+  color: #dddddd;
+}
+
+.primaryBg {
+  background-color: #658864;
+}
+.primaryColor {
+  color: #658864;
+}
+.secondaryBg {
+  background-color: #b7b78a;
+}
+.secondColor {
+  color: #b7b78a;
+}
+
+.link:hover {
+  border-bottom: 2px solid #dddddd;
+}
