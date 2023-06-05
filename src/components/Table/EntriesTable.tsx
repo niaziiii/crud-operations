@@ -98,7 +98,7 @@ export default function EntriesTable({ entries }: EntriesTable) {
                   <DeleteIcon
                     className="link-delete"
                     onClick={async () => {
-                      const data = await deleteEntry(row.id);
+                      const data = await deleteEntry(row._id as any);
                       dispatch({ type: "SET_DATA", payload: data });
                     }}
                     sx={{ cursor: "pointer" }}
